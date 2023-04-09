@@ -1,4 +1,4 @@
-import { SortBy } from 'tonik/src/core/interfaces/common';
+import { SortBy } from 'core/interfaces/common';
 
 export interface RepositorySearchResult {
   total_count: number;

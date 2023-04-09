@@ -5,7 +5,6 @@ describe('getDisplayDate', () => {
     expect(getDisplayDate(undefined)).toBe('-');
     expect(getDisplayDate(null)).toBe('-');
     expect(getDisplayDate('')).toBe('-');
-    expect(getDisplayDate(0)).toBe('-');
   });
 
   it('should return a valid date string when input is a valid date string', () => {

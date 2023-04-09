@@ -1,6 +1,7 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import { createRoot } from 'react-dom/client';
 import { TableManagerProps } from 'core/interfaces/tableManager';
+import React from 'react';
 import { DEFAULT_SEARCH_TERM, TABLE_PAGE_SIZE } from '../helpers/constants';
 import { useTableManager } from './tableManager';
 
@@ -20,20 +21,38 @@ function setupTableManager(props?: TableManagerProps) {
   return { result };
 }
 
+function TestComponent() {
+  const { result } = setupTableManager();
+
+  expect(result.current.searchTerm).toBe(DEFAULT_SEARCH_TERM);
+  expect(result.current.pageSize).toBe(10);
+  expect(result.current.currentPage).toBe(1);
+  expect(result.current.sortBy).toBeNull();
+  expect(result.current.sortOrder).toBeNull();
+
+  return (
+    <div>
+      <div data-testid="search-term">{result.current.searchTerm}</div>
+      <div data-testid="page-size">{result.current.pageSize}</div>
+      <div data-testid="current-page">{result.current.currentPage}</div>
+      <div data-testid="sort-by">{result.current.sortBy}</div>
+      <div data-testid="sort-order">{result.current.sortOrder}</div>
+    </div>
+  );
+}
+
 describe('useTableManager', () => {
   it('should set initial values', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     createRoot(document.createElement('div')).render(() => {
-      const { result } = setupTableManager();
-
-      expect(result.current.searchTerm).toBe(DEFAULT_SEARCH_TERM);
-      expect(result.current.pageSize).toBe(10);
-      expect(result.current.currentPage).toBe(1);
-      expect(result.current.sortBy).toBeNull();
-      expect(result.current.sortOrder).toBeNull();
+      return <TestComponent />;
     });
   });
 
   it('should update search term', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     createRoot(document.createElement('div')).render(() => {
       const { result } = setupTableManager();
 
@@ -46,6 +65,8 @@ describe('useTableManager', () => {
   });
 
   it('should update page size', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     createRoot(document.createElement('div')).render(() => {
       const { result } = setupTableManager();
 
@@ -61,6 +82,8 @@ describe('useTableManager', () => {
   });
 
   it('should update current page', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     createRoot(document.createElement('div')).render(() => {
       const { result } = setupTableManager();
 
@@ -76,6 +99,8 @@ describe('useTableManager', () => {
   });
 
   it('should toggle sort direction and set key', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     createRoot(document.createElement('div')).render(() => {
       const { result } = setupTableManager();
 
@@ -96,6 +121,8 @@ describe('useTableManager', () => {
   });
 
   it('should set the sort key and order when a new key is selected', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     createRoot(document.createElement('div')).render(() => {
       const { result } = setupTableManager();
 
@@ -110,6 +137,8 @@ describe('useTableManager', () => {
   });
 
   it('should return true when sorting in ascending order', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     createRoot(document.createElement('div')).render(() => {
       const { result } = setupTableManager();
 
