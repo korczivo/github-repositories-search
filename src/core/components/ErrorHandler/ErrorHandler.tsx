@@ -1,13 +1,8 @@
 interface ErrorHandlerProps {
-  isLoading: boolean;
   error?: string;
 }
 
-export function ErrorHandler({ isLoading, error }: ErrorHandlerProps) {
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
+export function ErrorHandler({ error }: ErrorHandlerProps) {
   return <div>{error || 'Error: Something went wrong!'}</div>;
 }
 

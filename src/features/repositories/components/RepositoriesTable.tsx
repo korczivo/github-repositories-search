@@ -115,8 +115,8 @@ export function RepositoriesTable() {
     return () => setRepositories([]);
   }, [data, isError, isLoading]);
 
-  if (isError || isLoading) {
-    return <ErrorHandler isLoading={isLoading} error={error?.message} />;
+  if (isError) {
+    return <ErrorHandler error={error?.message} />;
   }
 
   return (
@@ -146,31 +146,41 @@ export function RepositoriesTable() {
             ))}
           </Table.Row>
         </Table.Header>
-        <Table.Body>
-          {sortedRepositories?.length ? (
-            sortedRepositories.map((item) => (
-              <Table.Row key={item.id}>
-                <Table.Cell>{item?.name || '-'}</Table.Cell>
-                <Table.Cell>{item?.owner.login || '-'}</Table.Cell>
-                <Table.Cell>{item?.stargazers_count || 0}</Table.Cell>
-                <Table.Cell>{getDisplayDate(item?.created_at)}</Table.Cell>
-                <Table.Cell>
-                  {item?.html_url ? (
-                    <a href={item.html_url} target="_blank" rel="noreferrer">
-                      Link
-                    </a>
-                  ) : (
-                    '-'
-                  )}
-                </Table.Cell>
+        {!isLoading ? (
+          <Table.Body>
+            {sortedRepositories?.length ? (
+              sortedRepositories.map((item) => (
+                <Table.Row key={item.id}>
+                  <Table.Cell>{item?.name || '-'}</Table.Cell>
+                  <Table.Cell>{item?.owner.login || '-'}</Table.Cell>
+                  <Table.Cell>{item?.stargazers_count || 0}</Table.Cell>
+                  <Table.Cell>{getDisplayDate(item?.created_at)}</Table.Cell>
+                  <Table.Cell>
+                    {item?.html_url ? (
+                      <a href={item.html_url} target="_blank" rel="noreferrer">
+                        Link
+                      </a>
+                    ) : (
+                      '-'
+                    )}
+                  </Table.Cell>
+                </Table.Row>
+              ))
+            ) : (
+              <Table.Row>
+                <Table.Cell colSpan={4}>No repositories found.</Table.Cell>
               </Table.Row>
-            ))
-          ) : (
-            <Table.Row>
-              <Table.Cell colSpan={4}>No repositories found.</Table.Cell>
+            )}
+          </Table.Body>
+        ) : (
+          <Table.Body>
+            <Table.Row textAlign="center">
+              <Table.Cell colSpan={5}>
+                <Icon name="spinner" loading={isLoading} size="big" />
+              </Table.Cell>
             </Table.Row>
-          )}
-        </Table.Body>
+          </Table.Body>
+        )}
         <TablePagination
           pageSize={pageSize}
           handlePerPageChange={handlePerPageChange}
