@@ -33,8 +33,6 @@ export function useRepositoriesSearch(
     () => getRepositories(searchTerm, currentPage, pageSize),
     {
       staleTime: QUERY_STALE_TIME,
-      keepPreviousData: true,
-      refetchOnWindowFocus: false,
     }
   );
 }
