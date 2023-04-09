@@ -2,3 +2,4 @@
 /public
 jest-setup.ts
 vite.config.ts
+index.html
