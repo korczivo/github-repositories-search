@@ -22,8 +22,6 @@ function setupTableManager(props?: TableManagerProps) {
 
 describe('useTableManager', () => {
   it('should set initial values', () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     createRoot(document.createElement('div')).render(() => {
       const { result } = setupTableManager();
 
@@ -36,8 +34,6 @@ describe('useTableManager', () => {
   });
 
   it('should update search term', () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     createRoot(document.createElement('div')).render(() => {
       const { result } = setupTableManager();
 
@@ -50,8 +46,6 @@ describe('useTableManager', () => {
   });
 
   it('should update page size', () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     createRoot(document.createElement('div')).render(() => {
       const { result } = setupTableManager();
 
@@ -67,8 +61,6 @@ describe('useTableManager', () => {
   });
 
   it('should update current page', () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     createRoot(document.createElement('div')).render(() => {
       const { result } = setupTableManager();
 
@@ -84,8 +76,6 @@ describe('useTableManager', () => {
   });
 
   it('should toggle sort direction and set key', () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     createRoot(document.createElement('div')).render(() => {
       const { result } = setupTableManager();
 
@@ -106,8 +96,6 @@ describe('useTableManager', () => {
   });
 
   it('should set the sort key and order when a new key is selected', () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     createRoot(document.createElement('div')).render(() => {
       const { result } = setupTableManager();
 
@@ -122,8 +110,6 @@ describe('useTableManager', () => {
   });
 
   it('should return true when sorting in ascending order', () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     createRoot(document.createElement('div')).render(() => {
       const { result } = setupTableManager();
 
