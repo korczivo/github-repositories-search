@@ -19,7 +19,7 @@
     "paths": {
       "@/*": ["./src/*", "./dist/*", ""],
       "core/*": ["src/core/*"],
-      "features/*": ["src/features/*"],
+      "features/*": ["src/features/*"]
     }
   },
   "include": ["vite.config.ts", ".eslintrc", "src"],
