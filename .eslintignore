@@ -1,0 +1,4 @@
+/node_modules
+/public
+jest-setup.ts
+vite.config.ts
