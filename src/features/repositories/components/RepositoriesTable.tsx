@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Table, Icon } from 'semantic-ui-react';
 import {
   DEFAULT_SEARCH_TERM,
   SEARCH_DEBOUNCE_TIME,
@@ -10,7 +11,6 @@ import { useDebounce } from 'core/hooks/useDebounce';
 import { ErrorHandler } from 'core/components/ErrorHandler';
 import { Search } from 'core/components/Search';
 import { TablePagination } from 'core/components/TablePagination';
-import { TablePerPage } from 'core/components/TablePerPage';
 import { SortBy } from 'core/interfaces/common';
 import { getDisplayDate } from 'core/helpers/helpers';
 import { Repository, RepositoryTableHeaders } from '../interfaces';
@@ -122,11 +122,11 @@ export function RepositoriesTable() {
   return (
     <>
       <Search searchTerm={searchTerm} onChange={setSearchTerm} />
-      <table>
-        <thead>
-          <tr>
+      <Table>
+        <Table.Header>
+          <Table.Row>
             {headers.map((header) => (
-              <th
+              <Table.HeaderCell
                 key={header.key}
                 onClick={
                   header.key !== null
@@ -137,20 +137,24 @@ export function RepositoriesTable() {
                 {header.label}
                 {(sortOrder === 'asc' || sortOrder === 'desc') &&
                   sortBy === header.key &&
-                  sortOrder}
-              </th>
+                  (sortOrder === 'asc' ? (
+                    <Icon name="arrow up" size="small" />
+                  ) : (
+                    <Icon name="arrow down" size="small" />
+                  ))}
+              </Table.HeaderCell>
             ))}
-          </tr>
-        </thead>
-        <tbody>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
           {sortedRepositories?.length ? (
             sortedRepositories.map((item) => (
-              <tr key={item.id}>
-                <td>{item?.name || '-'}</td>
-                <td>{item?.owner.login || '-'}</td>
-                <td>{item?.stargazers_count || 0}</td>
-                <td>{getDisplayDate(item?.created_at)}</td>
-                <td>
+              <Table.Row key={item.id}>
+                <Table.Cell>{item?.name || '-'}</Table.Cell>
+                <Table.Cell>{item?.owner.login || '-'}</Table.Cell>
+                <Table.Cell>{item?.stargazers_count || 0}</Table.Cell>
+                <Table.Cell>{getDisplayDate(item?.created_at)}</Table.Cell>
+                <Table.Cell>
                   {item?.html_url ? (
                     <a href={item.html_url} target="_blank" rel="noreferrer">
                       Link
@@ -158,25 +162,23 @@ export function RepositoriesTable() {
                   ) : (
                     '-'
                   )}
-                </td>
-              </tr>
+                </Table.Cell>
+              </Table.Row>
             ))
           ) : (
-            <tr>
-              <td colSpan={4}>No repositories found.</td>
-            </tr>
+            <Table.Row>
+              <Table.Cell colSpan={4}>No repositories found.</Table.Cell>
+            </Table.Row>
           )}
-        </tbody>
-      </table>
-      <TablePerPage
-        pageSize={pageSize}
-        handlePerPageChange={handlePerPageChange}
-      />
-      <TablePagination
-        onPageChange={handlePageChange}
-        currentPage={currentPage}
-        totalPages={pageCount}
-      />
+        </Table.Body>
+        <TablePagination
+          pageSize={pageSize}
+          handlePerPageChange={handlePerPageChange}
+          onPageChange={handlePageChange}
+          currentPage={currentPage}
+          totalPages={pageCount}
+        />
+      </Table>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 import { INPUT_REQUIRED } from 'core/helpers/formsMessages';
+import { Grid, Input } from 'semantic-ui-react';
 
 interface SearchProps {
   searchTerm: string;
@@ -20,15 +21,16 @@ export function Search({ searchTerm, onChange }: SearchProps) {
 
   return (
     <>
-      <label htmlFor="search">
-        Search:
-        <input
-          id="search"
-          type="text"
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
-      </label>
+      <Grid>
+        <Grid.Column width={6}>
+          <Input
+            icon="search"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </Grid.Column>
+      </Grid>
       {error}
     </>
   );
