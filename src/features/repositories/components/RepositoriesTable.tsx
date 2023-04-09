@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import {
   DEFAULT_SEARCH_TERM,
@@ -11,6 +11,7 @@ import { useDebounce } from 'core/hooks/useDebounce';
 import { ErrorHandler } from 'core/components/ErrorHandler';
 import { Search } from 'core/components/Search';
 import { TablePagination } from 'core/components/TablePagination';
+import { TablePerPage } from 'core/components/TablePerPage';
 import { Repository, RepositoryTableHeaders } from '../interfaces';
 import { useRepositoriesSearch } from '../hooks/useRepositories';
 
@@ -21,13 +22,19 @@ export function RepositoriesTable() {
   const [repositories, setRepositories] = useState<Repository[] | undefined>(
     []
   );
-  const { searchTerm, setSearchTerm, currentPage, pageSize, handlePageChange } =
-    useTableManager({
-      pageParams,
-      initialSearchTerm: DEFAULT_SEARCH_TERM,
-      initialPageSize: Number(pageParams.get('per_page')) || TABLE_PAGE_SIZE,
-      initialCurrentPage: Number(pageParams.get('page')) || 1,
-    });
+  const {
+    searchTerm,
+    setSearchTerm,
+    currentPage,
+    pageSize,
+    handlePageChange,
+    handlePerPageChange,
+  } = useTableManager({
+    pageParams,
+    initialSearchTerm: DEFAULT_SEARCH_TERM,
+    initialPageSize: Number(pageParams.get('per_page')) || TABLE_PAGE_SIZE,
+    initialCurrentPage: Number(pageParams.get('page')) || 1,
+  });
 
   const debouncedSearchQuery = useDebounce(searchTerm, SEARCH_DEBOUNCE_TIME);
 
@@ -98,6 +105,10 @@ export function RepositoriesTable() {
           )}
         </tbody>
       </table>
+      <TablePerPage
+        pageSize={pageSize}
+        handlePerPageChange={handlePerPageChange}
+      />
       <TablePagination
         onPageChange={handlePageChange}
         currentPage={currentPage}

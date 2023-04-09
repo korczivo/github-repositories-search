@@ -1,0 +1,1 @@
+export { TablePerPage } from './TablePerPage';

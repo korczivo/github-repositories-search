@@ -23,11 +23,19 @@ export function useTableManager({
     history({ search: pageParams.toString() });
   };
 
+  const handlePerPageChange = (newPerPage: number) => {
+    setPageSize(newPerPage);
+    setCurrentPage(1);
+    pageParams.set('per_page', String(newPerPage));
+    history({ search: pageParams.toString() });
+  };
+
   return {
-    handlePageChange,
     searchTerm,
     setSearchTerm,
     pageSize,
     currentPage,
+    handlePageChange,
+    handlePerPageChange,
   };
 }

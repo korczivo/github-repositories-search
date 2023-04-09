@@ -11,4 +11,5 @@ export interface TableManagerResult {
   currentPage: number;
   pageSize: number;
   handlePageChange: (page: number) => void;
+  handlePerPageChange: (newPerPage: number) => void;
 }
