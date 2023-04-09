@@ -48,7 +48,7 @@ export function useTableManager({
     pageParams.set('per_page', String(newPerPage));
     history({ search: pageParams.toString() });
   };
-
+  console.log('test');
   return {
     searchTerm,
     setSearchTerm,
