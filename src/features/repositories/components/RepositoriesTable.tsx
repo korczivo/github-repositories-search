@@ -10,6 +10,7 @@ import { useTableManager } from 'core/hooks/tableManager';
 import { useDebounce } from 'core/hooks/useDebounce';
 import { ErrorHandler } from 'core/components/ErrorHandler';
 import { Search } from 'core/components/Search';
+import { TablePagination } from 'core/components/TablePagination';
 import { Repository, RepositoryTableHeaders } from '../interfaces';
 import { useRepositoriesSearch } from '../hooks/useRepositories';
 
@@ -20,11 +21,13 @@ export function RepositoriesTable() {
   const [repositories, setRepositories] = useState<Repository[] | undefined>(
     []
   );
-  const { searchTerm, setSearchTerm, currentPage, pageSize } = useTableManager({
-    initialSearchTerm: DEFAULT_SEARCH_TERM,
-    initialPageSize: Number(pageParams.get('per_page')) || TABLE_PAGE_SIZE,
-    initialCurrentPage: Number(pageParams.get('page')) || 1,
-  });
+  const { searchTerm, setSearchTerm, currentPage, pageSize, handlePageChange } =
+    useTableManager({
+      pageParams,
+      initialSearchTerm: DEFAULT_SEARCH_TERM,
+      initialPageSize: Number(pageParams.get('per_page')) || TABLE_PAGE_SIZE,
+      initialCurrentPage: Number(pageParams.get('page')) || 1,
+    });
 
   const debouncedSearchQuery = useDebounce(searchTerm, SEARCH_DEBOUNCE_TIME);
 
@@ -41,6 +44,10 @@ export function RepositoriesTable() {
     { key: 'created', label: 'Created' },
     { key: null, label: 'Details' },
   ];
+
+  const pageCount = data?.total_count
+    ? Math.ceil(data.total_count / pageSize)
+    : null;
 
   useEffect(() => {
     if (!isLoading && !isError) {
@@ -91,6 +98,11 @@ export function RepositoriesTable() {
           )}
         </tbody>
       </table>
+      <TablePagination
+        onPageChange={handlePageChange}
+        currentPage={currentPage}
+        totalPages={pageCount}
+      />
     </>
   );
 }
