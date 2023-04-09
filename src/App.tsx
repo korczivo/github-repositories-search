@@ -5,13 +5,11 @@ import { RepositoriesTable } from 'features/repositories/components/Repositories
 function App() {
   const queryClient = new QueryClient();
   return (
-    <div className="App">
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <RepositoriesTable />
-        </BrowserRouter>
-      </QueryClientProvider>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <RepositoriesTable />
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 
