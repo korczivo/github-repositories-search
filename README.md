@@ -116,7 +116,6 @@ Next time make your code with TDD approach :)
 - using [snackbars](https://evandromacedo.github.io/react-simple-snackbar/) notify user what happened in your app
 - add search term to the query params
 - let's think about start your project and how to configure husky automatically
-- fix tests for useTableManager because for now deploy on Vercel failing because of TS errors 
 
 ## How to run
 
